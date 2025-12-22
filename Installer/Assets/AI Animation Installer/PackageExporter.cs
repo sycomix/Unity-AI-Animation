@@ -8,21 +8,32 @@
 └────────────────────────────────────────────────────────────────────────────┘
 */
 #nullable enable
+using UnityEngine;
 using UnityEditor;
+using System.IO;
 
-namespace YOUR_PACKAGE_ID.Installer
+namespace com.IvanMurzak.Unity.MCP.Animation.Installer
 {
-    [InitializeOnLoad]
-    public static partial class Installer
+    public static class PackageExporter
     {
-        public const string PackageId = "YOUR_PACKAGE_ID_LOWERCASE";
-        public const string Version = "1.0.0";
-
-        static Installer()
+        public static void ExportPackage()
         {
-#if !IVAN_MURZAK_INSTALLER_PROJECT
-            AddScopedRegistryIfNeeded(ManifestPath);
-#endif
+            Debug.Log("Starting Package Export...");
+
+            var packagePath = "Assets/AI Animation Installer";
+            var outputPath = "build/AI-Animation-Installer.unitypackage";
+
+            // Ensure build directory exists
+            var buildDir = Path.GetDirectoryName(outputPath);
+            if (!Directory.Exists(buildDir))
+            {
+                Directory.CreateDirectory(buildDir);
+            }
+
+            // Export the package
+            AssetDatabase.ExportPackage(packagePath, outputPath, ExportPackageOptions.Recurse);
+
+            Debug.Log($"Package exported to: {outputPath}");
         }
     }
 }

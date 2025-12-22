@@ -1,15 +1,16 @@
 {
-    "name": "YOUR_PACKAGE_ID.Installer",
-    "rootNamespace": "YOUR_PACKAGE_ID.Installer",
-    "references": [],
-    "includePlatforms": [
+    "name": "com.IvanMurzak.Unity.MCP.Animation.Runtime",
+    "references": [
+        "com.IvanMurzak.Unity.MCP.Runtime"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [
         "Editor"
     ],
-    "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
     "precompiledReferences": [],
-    "autoReferenced": false,
+    "autoReferenced": true,
     "defineConstraints": [],
     "versionDefines": [],
     "noEngineReferences": false

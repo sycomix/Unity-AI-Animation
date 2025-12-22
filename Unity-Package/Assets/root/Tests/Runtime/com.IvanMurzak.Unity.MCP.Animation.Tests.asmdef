@@ -1,16 +1,11 @@
 {
-    "name": "YOUR_PACKAGE_ID.Editor.Tests",
+    "name": "com.IvanMurzak.Unity.MCP.Animation.Tests",
     "references": [
-        "com.IvanMurzak.Unity.MCP.Editor",
         "com.IvanMurzak.Unity.MCP.Runtime",
         "UnityEngine.TestRunner",
-        "UnityEditor.TestRunner",
-        "YOUR_PACKAGE_ID.Runtime",
-        "YOUR_PACKAGE_ID.Editor"
+        "com.IvanMurzak.Unity.MCP.Animation.Runtime"
     ],
-    "includePlatforms": [
-        "Editor"
-    ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": true,
