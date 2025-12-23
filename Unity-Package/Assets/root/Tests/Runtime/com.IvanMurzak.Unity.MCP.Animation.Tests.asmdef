@@ -1,0 +1,21 @@
+{
+    "name": "com.IvanMurzak.Unity.MCP.Animation.Tests",
+    "references": [
+        "com.IvanMurzak.Unity.MCP.Runtime",
+        "UnityEngine.TestRunner",
+        "com.IvanMurzak.Unity.MCP.Animation.Runtime"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

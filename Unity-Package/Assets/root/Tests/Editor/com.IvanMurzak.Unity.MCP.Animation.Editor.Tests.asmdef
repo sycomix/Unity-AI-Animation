@@ -1,0 +1,26 @@
+{
+    "name": "com.IvanMurzak.Unity.MCP.Animation.Editor.Tests",
+    "references": [
+        "com.IvanMurzak.Unity.MCP.Editor",
+        "com.IvanMurzak.Unity.MCP.Runtime",
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner",
+        "com.IvanMurzak.Unity.MCP.Animation.Runtime",
+        "com.IvanMurzak.Unity.MCP.Animation.Editor"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
