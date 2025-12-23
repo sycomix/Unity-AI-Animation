@@ -37,6 +37,19 @@ public class CharacterMovement : MonoBehaviour
         {
             SetWalking(false);
         }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Jump();
+        }
+    }
+
+    void Jump()
+    {
+        if (animator != null)
+        {
+            animator.SetTrigger("Jump");
+        }
     }
 
     void SetWalking(bool isWalking)
