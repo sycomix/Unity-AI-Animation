@@ -17,46 +17,46 @@ namespace com.IvanMurzak.Unity.MCP.Animation
 {
     public class AnimationModification
     {
-        [Description("Type of modification to apply.")]
+        [Description("Modification type. Properties below are used conditionally based on this value.")]
         public ModificationType type;
 
-        // Curve-related properties
-        [Description("Relative path to the target GameObject (empty string for root).")]
+        // Curve-related properties (SetCurve, RemoveCurve)
+        [Description("Path to target GameObject relative to the root (empty for root). Used by: SetCurve, RemoveCurve.")]
         public string? relativePath;
 
-        [Description("Component type name (e.g., 'Transform', 'SpriteRenderer').")]
+        [Description("Component type name (e.g., 'Transform', 'SpriteRenderer'). Required for: SetCurve, RemoveCurve.")]
         public string? componentType;
 
-        [Description("Property name to animate (e.g., 'localPosition.x', 'm_LocalScale.y').")]
+        [Description("Property to animate (e.g., 'localPosition.x', 'm_LocalScale.y'). Required for: SetCurve, RemoveCurve.")]
         public string? propertyName;
 
-        [Description("Array of keyframes for the animation curve.")]
+        [Description("Keyframes for the curve. Required for: SetCurve.")]
         public AnimationKeyframe[]? keyframes;
 
-        // Property-related
-        [Description("Frame rate for the animation clip.")]
+        // Clip properties (SetFrameRate, SetWrapMode, SetLegacy)
+        [Description("Frames per second. Required for: SetFrameRate.")]
         public float? frameRate;
 
-        [Description("Wrap mode for the animation clip.")]
+        [Description("How animation behaves at boundaries. Required for: SetWrapMode.")]
         public WrapMode? wrapMode;
 
-        [Description("Whether the clip uses legacy animation system.")]
+        [Description("Use legacy animation system. Required for: SetLegacy.")]
         public bool? legacy;
 
-        // Event-related
-        [Description("Time in seconds when the event should fire.")]
+        // Event-related (AddEvent)
+        [Description("Event trigger time in seconds. Required for: AddEvent.")]
         public float? time;
 
-        [Description("Name of the function to call.")]
+        [Description("Function to invoke. Required for: AddEvent.")]
         public string? functionName;
 
-        [Description("String parameter for the event.")]
+        [Description("String parameter passed to the function. Optional for: AddEvent.")]
         public string? stringParameter;
 
-        [Description("Float parameter for the event.")]
+        [Description("Float parameter passed to the function. Optional for: AddEvent.")]
         public float? floatParameter;
 
-        [Description("Integer parameter for the event.")]
+        [Description("Integer parameter passed to the function. Optional for: AddEvent.")]
         public int? intParameter;
     }
 }

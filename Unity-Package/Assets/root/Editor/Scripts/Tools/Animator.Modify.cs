@@ -37,19 +37,7 @@ namespace com.IvanMurzak.Unity.MCP.Animation
             [Description("Reference to the AnimatorController asset to modify.")]
             AssetObjectRef animatorRef,
 
-            [Description(@"Array of modifications to apply. Each modification has a 'type' field (AnimatorModificationType enum):
-- AddParameter: Add a new parameter. Requires: parameterName, parameterType (Float, Int, Bool, Trigger). Optional: defaultFloat, defaultInt, defaultBool.
-- RemoveParameter: Remove a parameter. Requires: parameterName.
-- AddLayer: Add a new layer. Requires: layerName.
-- RemoveLayer: Remove a layer. Requires: layerName.
-- AddState: Add a new state. Requires: layerName, stateName. Optional: motionAssetPath (path to AnimationClip).
-- RemoveState: Remove a state. Requires: layerName, stateName.
-- SetDefaultState: Set the default state for a layer. Requires: layerName, stateName.
-- AddTransition: Add a transition between states. Requires: layerName, sourceStateName, destinationStateName. Optional: hasExitTime, exitTime, duration, conditions array.
-- RemoveTransition: Remove a transition. Requires: layerName, sourceStateName, destinationStateName.
-- AddAnyStateTransition: Add a transition from Any State. Requires: layerName, destinationStateName. Optional: hasExitTime, exitTime, duration, conditions array.
-- SetStateMotion: Set the motion (AnimationClip) for a state. Requires: layerName, stateName, motionAssetPath.
-- SetStateSpeed: Set the speed of a state. Requires: layerName, stateName, speed.")]
+            [Description("Array of modifications to apply to the controller.")]
             AnimatorModification[] modifications
         )
         {

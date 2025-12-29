@@ -35,15 +35,7 @@ namespace com.IvanMurzak.Unity.MCP.Animation
             [Description("Reference to the AnimationClip asset to modify.")]
             AssetObjectRef animRef,
 
-            [Description(@"Array of modifications to apply. Each modification has a 'type' field (ModificationType enum):
-- SetCurve: Add or modify an animation curve. Requires: relativePath, componentType (e.g., 'Transform'), propertyName (e.g., 'localPosition.x'), keyframes array.
-- RemoveCurve: Remove a specific curve. Requires: relativePath, componentType, propertyName.
-- ClearCurves: Remove all curves from the clip.
-- SetFrameRate: Set the frame rate. Requires: frameRate.
-- SetWrapMode: Set the wrap mode. Requires: wrapMode (WrapMode enum).
-- SetLegacy: Set legacy mode. Requires: legacy.
-- AddEvent: Add an animation event. Requires: time, functionName. Optional: stringParameter, floatParameter, intParameter.
-- ClearEvents: Remove all animation events.")]
+            [Description("Array of modifications to apply to the clip.")]
             AnimationModification[] modifications
         )
         {

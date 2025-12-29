@@ -16,59 +16,59 @@ namespace com.IvanMurzak.Unity.MCP.Animation
 {
     public class AnimatorModification
     {
-        [Description("Type of modification to apply.")]
+        [Description("Modification type. Properties below are used conditionally based on this value.")]
         public AnimatorModificationType type;
 
-        // Parameter fields
-        [Description("Name of the parameter.")]
+        // Parameter fields (AddParameter, RemoveParameter)
+        [Description("Parameter name. Required for: AddParameter, RemoveParameter.")]
         public string? parameterName;
 
-        [Description("Parameter type: Float, Int, Bool, Trigger.")]
+        [Description("Parameter type: Float, Int, Bool, Trigger. Required for: AddParameter.")]
         public string? parameterType;
 
-        [Description("Default float value for the parameter.")]
+        [Description("Default float value. Optional for: AddParameter (Float type).")]
         public float? defaultFloat;
 
-        [Description("Default int value for the parameter.")]
+        [Description("Default int value. Optional for: AddParameter (Int type).")]
         public int? defaultInt;
 
-        [Description("Default bool value for the parameter.")]
+        [Description("Default bool value. Optional for: AddParameter (Bool type).")]
         public bool? defaultBool;
 
-        // Layer fields
-        [Description("Name of the layer.")]
+        // Layer fields (AddLayer, RemoveLayer, AddState, RemoveState, SetDefaultState, transitions)
+        [Description("Layer name. Required for: AddLayer, RemoveLayer, AddState, RemoveState, SetDefaultState, AddTransition, RemoveTransition, AddAnyStateTransition, SetStateMotion, SetStateSpeed.")]
         public string? layerName;
 
-        // State fields
-        [Description("Name of the state.")]
+        // State fields (AddState, RemoveState, SetDefaultState, SetStateMotion, SetStateSpeed)
+        [Description("State name. Required for: AddState, RemoveState, SetDefaultState, SetStateMotion, SetStateSpeed.")]
         public string? stateName;
 
-        [Description("Asset path to the motion (AnimationClip).")]
+        [Description("Asset path to AnimationClip. Optional for: AddState. Required for: SetStateMotion.")]
         public string? motionAssetPath;
 
-        [Description("Speed multiplier for the state.")]
+        [Description("Speed multiplier. Required for: SetStateSpeed.")]
         public float? speed;
 
-        // Transition fields
-        [Description("Name of the source state for transitions.")]
+        // Transition fields (AddTransition, RemoveTransition, AddAnyStateTransition)
+        [Description("Source state name. Required for: AddTransition, RemoveTransition.")]
         public string? sourceStateName;
 
-        [Description("Name of the destination state for transitions.")]
+        [Description("Destination state name. Required for: AddTransition, RemoveTransition, AddAnyStateTransition.")]
         public string? destinationStateName;
 
-        [Description("Whether the transition has exit time.")]
+        [Description("Whether transition waits for exit time. Optional for: AddTransition, AddAnyStateTransition.")]
         public bool? hasExitTime;
 
-        [Description("Exit time for the transition.")]
+        [Description("Normalized exit time (0-1). Optional for: AddTransition, AddAnyStateTransition.")]
         public float? exitTime;
 
-        [Description("Duration of the transition.")]
+        [Description("Transition blend duration. Optional for: AddTransition, AddAnyStateTransition.")]
         public float? duration;
 
-        [Description("Whether the transition has fixed duration.")]
+        [Description("Whether duration is in seconds (true) or normalized (false). Optional for: AddTransition, AddAnyStateTransition.")]
         public bool? hasFixedDuration;
 
-        [Description("Conditions for the transition.")]
+        [Description("Transition conditions. Optional for: AddTransition, AddAnyStateTransition.")]
         public AnimatorConditionData[]? conditions;
     }
 }
