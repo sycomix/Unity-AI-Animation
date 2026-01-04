@@ -1,12 +1,12 @@
 {
     "name": "com.IvanMurzak.Unity.MCP.Animation.Editor.Tests",
     "references": [
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner",
         "com.IvanMurzak.Unity.MCP.Editor",
         "com.IvanMurzak.Unity.MCP.Editor.Tests",
         "com.IvanMurzak.Unity.MCP.Runtime",
         "com.IvanMurzak.Unity.MCP.TestFiles",
-        "UnityEngine.TestRunner",
-        "UnityEditor.TestRunner",
         "com.IvanMurzak.Unity.MCP.Animation.Runtime",
         "com.IvanMurzak.Unity.MCP.Animation.Editor"
     ],

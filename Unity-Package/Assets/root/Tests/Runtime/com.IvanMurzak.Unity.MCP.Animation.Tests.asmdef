@@ -1,10 +1,10 @@
 {
     "name": "com.IvanMurzak.Unity.MCP.Animation.Tests",
     "references": [
+        "UnityEngine.TestRunner",
         "com.IvanMurzak.Unity.MCP.Runtime",
         "com.IvanMurzak.Unity.MCP.Runtime.Tests",
         "com.IvanMurzak.Unity.MCP.TestFiles",
-        "UnityEngine.TestRunner",
         "com.IvanMurzak.Unity.MCP.Animation.Runtime"
     ],
     "includePlatforms": [],
