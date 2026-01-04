@@ -126,22 +126,6 @@
       "enabled": true
     },
     {
-      "name": "package-add",
-      "enabled": true
-    },
-    {
-      "name": "package-list",
-      "enabled": true
-    },
-    {
-      "name": "package-remove",
-      "enabled": true
-    },
-    {
-      "name": "package-search",
-      "enabled": true
-    },
-    {
       "name": "reflection-method-call",
       "enabled": true
     },
