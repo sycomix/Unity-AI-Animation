@@ -10,6 +10,7 @@
 
 #nullable enable
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using com.IvanMurzak.McpPlugin;
@@ -22,9 +23,10 @@ namespace com.IvanMurzak.Unity.MCP.Animation
 {
     public static partial class AnimatorTools
     {
+        public const string AnimatorGetDataToolId = "animator-get-data";
         [McpPluginTool
         (
-            "animator-get-data",
+            AnimatorGetDataToolId,
             Title = "Animator / Get Data"
         )]
         [Description(@"Get data about a Unity AnimatorController asset file. Returns information such as name, layers, parameters, and states.")]
@@ -34,11 +36,17 @@ namespace com.IvanMurzak.Unity.MCP.Animation
             AssetObjectRef animatorRef
         )
         {
+            if (animatorRef == null)
+                throw new ArgumentNullException(nameof(animatorRef));
+
+            if (!animatorRef.IsValid(out var animatorRefValidationError))
+                throw new ArgumentException(animatorRefValidationError, nameof(animatorRef));
+
             return MainThread.Instance.Run(() =>
             {
                 var controller = animatorRef.FindAssetObject<AnimatorController>();
                 if (controller == null)
-                    throw new System.Exception($"AnimatorController not found.");
+                    throw new Exception($"AnimatorController not found.");
 
                 var response = new GetAnimatorDataResponse
                 {

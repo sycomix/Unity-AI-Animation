@@ -16,6 +16,7 @@ using System.ComponentModel;
 using System.Linq;
 using com.IvanMurzak.McpPlugin;
 using com.IvanMurzak.ReflectorNet.Utils;
+using com.IvanMurzak.Unity.MCP.Editor.Utils;
 using com.IvanMurzak.Unity.MCP.Runtime.Data;
 using com.IvanMurzak.Unity.MCP.Runtime.Extensions;
 using UnityEditor;
@@ -26,12 +27,15 @@ namespace com.IvanMurzak.Unity.MCP.Animation
 {
     public static partial class AnimatorTools
     {
+        public const string AnimatorModifyToolId = "animator-modify";
         [McpPluginTool
         (
-            "animator-modify",
+            AnimatorModifyToolId,
             Title = "Animator / Modify"
         )]
-        [Description(@"Modify Unity's AnimatorController asset. Apply an array of modifications including adding/removing parameters, layers, states, and transitions.")]
+        [Description("Modify Unity's AnimatorController asset. " +
+            "Apply an array of modifications including adding/removing parameters, layers, states, and transitions. " +
+            "Use '" + AnimatorGetDataToolId + "' tool to get valid names and parameters for modifications.")]
         public static ModifyAnimatorResponse ModifyAnimatorController
         (
             [Description("Reference to the AnimatorController asset to modify.")]
@@ -41,6 +45,18 @@ namespace com.IvanMurzak.Unity.MCP.Animation
             AnimatorModification[] modifications
         )
         {
+            if (animatorRef == null)
+                throw new ArgumentNullException(nameof(animatorRef));
+
+            if (!animatorRef.IsValid(out var animatorRefValidationError))
+                throw new ArgumentException(animatorRefValidationError, nameof(animatorRef));
+
+            if (modifications == null)
+                throw new ArgumentNullException(nameof(modifications));
+
+            if (modifications.Length == 0)
+                throw new ArgumentException("Array is empty.", nameof(modifications));
+
             return MainThread.Instance.Run(() =>
             {
                 var controller = animatorRef.FindAssetObject<AnimatorController>();
@@ -70,9 +86,7 @@ namespace com.IvanMurzak.Unity.MCP.Animation
                 AssetDatabase.SaveAssets();
                 AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
 
-                EditorApplication.RepaintProjectWindow();
-                EditorApplication.RepaintHierarchyWindow();
-                UnityEditorInternal.InternalEditorUtility.RepaintAllViews();
+                EditorUtils.RepaintAllEditorWindows();
 
                 var assetPath = AssetDatabase.GetAssetPath(controller);
                 response.modifiedAsset = new ModifyAnimatorInfo

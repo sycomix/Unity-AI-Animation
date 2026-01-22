@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using com.IvanMurzak.McpPlugin;
 using com.IvanMurzak.ReflectorNet.Utils;
+using com.IvanMurzak.Unity.MCP.Editor.Utils;
 using com.IvanMurzak.Unity.MCP.Runtime.Data;
 using com.IvanMurzak.Unity.MCP.Runtime.Extensions;
 using UnityEditor;
@@ -24,12 +25,15 @@ namespace com.IvanMurzak.Unity.MCP.Animation
 {
     public static partial class AnimationTools
     {
+        public const string AnimationModifyToolId = "animation-modify";
         [McpPluginTool
         (
-            "animation-modify",
+            AnimationModifyToolId,
             Title = "Animation / Modify"
         )]
-        [Description(@"Modify Unity's AnimationClip asset. Apply an array of modifications including setting curves, clearing curves, setting properties, and managing animation events.")]
+        [Description("Modify Unity's AnimationClip asset. " +
+            "Apply an array of modifications including setting curves, clearing curves, setting properties, and managing animation events. " +
+            "Use '" + AnimationGetDataToolId + "' tool to get valid property names and existing curves for modifications.")]
         public static ModifyAnimationResponse ModifyAnimationClip
         (
             [Description("Reference to the AnimationClip asset to modify.")]
@@ -39,6 +43,18 @@ namespace com.IvanMurzak.Unity.MCP.Animation
             AnimationModification[] modifications
         )
         {
+            if (animRef == null)
+                throw new ArgumentNullException(nameof(animRef));
+
+            if (!animRef.IsValid(out var animRefValidationError))
+                throw new ArgumentException(animRefValidationError, nameof(animRef));
+
+            if (modifications == null)
+                throw new ArgumentNullException(nameof(modifications));
+
+            if (modifications.Length == 0)
+                throw new ArgumentException("Array is empty.", nameof(modifications));
+
             return MainThread.Instance.Run(() =>
             {
                 var animation = animRef.FindAssetObject<AnimationClip>();
@@ -72,9 +88,7 @@ namespace com.IvanMurzak.Unity.MCP.Animation
                 AssetDatabase.SaveAssets();
                 AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
 
-                EditorApplication.RepaintProjectWindow();
-                EditorApplication.RepaintHierarchyWindow();
-                UnityEditorInternal.InternalEditorUtility.RepaintAllViews();
+                EditorUtils.RepaintAllEditorWindows();
 
                 var assetPath = AssetDatabase.GetAssetPath(animation);
                 response.modifiedAsset = new ModifyAnimationInfo
