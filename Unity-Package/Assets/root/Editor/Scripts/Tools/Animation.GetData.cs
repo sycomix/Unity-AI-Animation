@@ -10,6 +10,7 @@
 
 #nullable enable
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using com.IvanMurzak.McpPlugin;
@@ -23,9 +24,10 @@ namespace com.IvanMurzak.Unity.MCP.Animation
 {
     public static partial class AnimationTools
     {
+        public const string AnimationGetDataToolId = "animation-get-data";
         [McpPluginTool
         (
-            "animation-get-data",
+            AnimationGetDataToolId,
             Title = "Animation / Get Data"
         )]
         [Description(@"Get data about a Unity AnimationClip asset file. Returns information such as name, length, frame rate, wrap mode, animation curves, and events.")]
@@ -35,6 +37,12 @@ namespace com.IvanMurzak.Unity.MCP.Animation
             AssetObjectRef animRef
         )
         {
+            if (animRef == null)
+                throw new ArgumentNullException(nameof(animRef));
+
+            if (!animRef.IsValid(out var animRefValidationError))
+                throw new ArgumentException(animRefValidationError, nameof(animRef));
+
             return MainThread.Instance.Run(() =>
             {
                 var animation = animRef.FindAssetObject<AnimationClip>();

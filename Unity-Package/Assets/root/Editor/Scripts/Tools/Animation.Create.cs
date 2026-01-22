@@ -10,11 +10,13 @@
 
 #nullable enable
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using com.IvanMurzak.McpPlugin;
 using com.IvanMurzak.ReflectorNet.Utils;
+using com.IvanMurzak.Unity.MCP.Editor.Utils;
 using UnityEditor;
 using UnityEngine;
 
@@ -22,9 +24,10 @@ namespace com.IvanMurzak.Unity.MCP.Animation
 {
     public static partial class AnimationTools
     {
+        public const string AnimationCreateToolId = "animation-create";
         [McpPluginTool
         (
-            "animation-create",
+            AnimationCreateToolId,
             Title = "Animation / Create"
         )]
         [Description(@"Create Unity's Animation asset files (AnimationClip). Creates folders recursively if they do not exist. Each path should start with 'Assets/' and end with '.anim'.")]
@@ -36,8 +39,11 @@ namespace com.IvanMurzak.Unity.MCP.Animation
         {
             return MainThread.Instance.Run(() =>
             {
-                if (sourcePaths == null || sourcePaths.Length == 0)
-                    throw new System.Exception("The sourcePaths array is empty or null.");
+                if (sourcePaths == null)
+                    throw new ArgumentNullException(nameof(sourcePaths));
+
+                if (sourcePaths.Length == 0)
+                    throw new ArgumentException("Array is empty.", nameof(sourcePaths));
 
                 var response = new CreateAnimationResponse();
 
@@ -92,9 +98,7 @@ namespace com.IvanMurzak.Unity.MCP.Animation
                 AssetDatabase.SaveAssets();
                 AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
 
-                EditorApplication.RepaintProjectWindow();
-                EditorApplication.RepaintHierarchyWindow();
-                UnityEditorInternal.InternalEditorUtility.RepaintAllViews();
+                EditorUtils.RepaintAllEditorWindows();
 
                 return response;
             });

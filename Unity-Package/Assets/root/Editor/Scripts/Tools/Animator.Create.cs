@@ -10,11 +10,13 @@
 
 #nullable enable
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using com.IvanMurzak.McpPlugin;
 using com.IvanMurzak.ReflectorNet.Utils;
+using com.IvanMurzak.Unity.MCP.Editor.Utils;
 using UnityEditor;
 using UnityEditor.Animations;
 
@@ -22,9 +24,10 @@ namespace com.IvanMurzak.Unity.MCP.Animation
 {
     public static partial class AnimatorTools
     {
+        public const string AnimatorCreateToolId = "animator-create";
         [McpPluginTool
         (
-            "animator-create",
+            AnimatorCreateToolId,
             Title = "Animator / Create"
         )]
         [Description(@"Create Unity's AnimatorController asset files. Creates folders recursively if they do not exist. Each path should start with 'Assets/' and end with '.controller'.")]
@@ -34,11 +37,14 @@ namespace com.IvanMurzak.Unity.MCP.Animation
             string[] sourcePaths
         )
         {
+            if (sourcePaths == null)
+                throw new ArgumentNullException(nameof(sourcePaths));
+
+            if (sourcePaths.Length == 0)
+                throw new ArgumentException("Array is empty.", nameof(sourcePaths));
+
             return MainThread.Instance.Run(() =>
             {
-                if (sourcePaths == null || sourcePaths.Length == 0)
-                    throw new System.Exception("The sourcePaths array is empty or null.");
-
                 var response = new CreateAnimatorResponse();
 
                 foreach (var assetPath in sourcePaths)
@@ -88,9 +94,7 @@ namespace com.IvanMurzak.Unity.MCP.Animation
                 AssetDatabase.SaveAssets();
                 AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
 
-                EditorApplication.RepaintProjectWindow();
-                EditorApplication.RepaintHierarchyWindow();
-                UnityEditorInternal.InternalEditorUtility.RepaintAllViews();
+                EditorUtils.RepaintAllEditorWindows();
 
                 return response;
             });
