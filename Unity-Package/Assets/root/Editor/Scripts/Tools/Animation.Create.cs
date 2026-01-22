@@ -37,14 +37,14 @@ namespace com.IvanMurzak.Unity.MCP.Animation
             string[] sourcePaths
         )
         {
+            if (sourcePaths == null)
+                throw new ArgumentNullException(nameof(sourcePaths));
+
+            if (sourcePaths.Length == 0)
+                throw new ArgumentException("Array is empty.", nameof(sourcePaths));
+
             return MainThread.Instance.Run(() =>
             {
-                if (sourcePaths == null)
-                    throw new ArgumentNullException(nameof(sourcePaths));
-
-                if (sourcePaths.Length == 0)
-                    throw new ArgumentException("Array is empty.", nameof(sourcePaths));
-
                 var response = new CreateAnimationResponse();
 
                 foreach (var assetPath in sourcePaths)
